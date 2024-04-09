@@ -1,16 +1,17 @@
 import React from "react";
 import Link from "next/link";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 
 const Signup = () => {
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center font-[600] leading-9 tracking-tight text-indigo-600">
-          Create New Quote
-        </h2>
-      </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+    <div className="flex justify-center items-center h-[95vh]">
+      <Card sx={{ width: 600 }}>
+        <CardContent>
+          <h2 className="mt-10 text-center font-[600] text-[2rem] leading-9 tracking-tight text-indigo-600 mb-10">
+            Create New Quote
+          </h2>
+
           <div>
             <div className="flex items-center justify-between">
               <label
@@ -49,16 +50,16 @@ const Signup = () => {
               />
             </div>
           </div>
-          <div>
+          <div className="mt-10">
             <button
-              type="submit"
+              type="button"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Save
             </button>
           </div>
-        </form>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

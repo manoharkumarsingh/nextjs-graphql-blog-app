@@ -4,7 +4,8 @@ import { ConnectOptions } from "mongoose";
 import resolvers from "./resolvers";
 import { ApolloServer } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
-
+import "../../../models/Quotes";
+import "../../../models/User";
 mongoose.connect(process.env.MONGO_URI!, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

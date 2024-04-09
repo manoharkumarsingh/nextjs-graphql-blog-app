@@ -2,8 +2,10 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-const User = mongoose.model("User");
-const Quote = mongoose.model("Quote");
+import User from "../../..//models/User";
+import Quote from "../../../models/Quotes";
+// const User = mongoose.model("User");
+// const Quote = mongoose.model("Quote");
 
 const resolvers = {
   Query: {
