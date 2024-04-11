@@ -52,15 +52,16 @@ const resolvers = {
       return { token };
     },
 
-    createQuote: async (_, { name }, { userId }) => {
-      if (!userId) {
-        throw new Error("You must be logged in");
-      }
-      const newQuote = new Quote({
-        name,
+    createQuote: async (_, { newBlog }, { userId }) => {
+      // if (!userId) {
+      //   throw new Error("You must be logged in");
+      // }
+      const blog = new Quote({
+        desc: newBlog.desc,
+        name: newBlog.name,
         by: userId,
       });
-      await newQuote.save();
+      await blog.save();
       return "Quote saved successfully";
     },
   },

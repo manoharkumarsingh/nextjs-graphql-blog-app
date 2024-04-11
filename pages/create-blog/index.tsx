@@ -1,9 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import { CREATE_QUOTE } from "../../gqloperations/mutations";
+import { useMutation } from "@apollo/client";
+import { GET_ALL_QUOTES } from "../../gqloperations/queries";
+
+interface BlogInput {
+  name: string;
+  desc: string;
+}
 
 const Signup = () => {
+  const [blogInput, setBlogInput] = useState<BlogInput>({
+    name: "",
+    desc: "",
+  });
+
+  const [createQuote, { data, loading, error }] = useMutation(CREATE_QUOTE, {
+    refetchQueries: [GET_ALL_QUOTES, "getAllQuotes"],
+  });
+
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const id = e.target.id as keyof BlogInput;
+    setBlogInput({ ...blogInput, [id]: e.target.value });
+  };
+
+  const handleDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const id = e.target.id as keyof BlogInput;
+    setBlogInput({ ...blogInput, [id]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    createQuote({
+      variables: {
+        newBlog: blogInput,
+      },
+    });
+  };
+
   return (
     <div className="flex justify-center items-center h-[95vh]">
       <Card sx={{ width: 600 }}>
@@ -23,11 +58,15 @@ const Signup = () => {
             </div>
             <div className="mt-2">
               <input
-                id="title"
+                id="name"
                 name="title"
                 type="text"
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                onChange={(e) => {
+                  handleUserInput(e);
+                }}
+                value={blogInput.name}
               />
             </div>
           </div>
@@ -43,10 +82,14 @@ const Signup = () => {
             </div>
             <div className="mt-2">
               <textarea
-                id="description"
+                id="desc"
                 name="description"
                 required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 pl-2"
+                onChange={(e) => {
+                  handleDescription(e);
+                }}
+                value={blogInput.desc}
               />
             </div>
           </div>
@@ -54,6 +97,7 @@ const Signup = () => {
             <button
               type="button"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={handleSubmit}
             >
               Save
             </button>

@@ -11,6 +11,7 @@ const typeDefs = gql`
   type QuoteWithName {
     name: String
     by: IdName
+    desc: String
   }
 
   type IdName {
@@ -28,6 +29,7 @@ const typeDefs = gql`
   type Quote {
     name: String
     by: ID
+    desc: String
   }
 
   type Token {
@@ -37,7 +39,12 @@ const typeDefs = gql`
   type Mutation {
     signupUser(userNew: UserInput!): User
     signinUser(userSignin: UserSigninInput!): Token
-    createQuote(name: String!): String
+    createQuote(newBlog: BlogInput!): String
+  }
+
+  input BlogInput {
+    name: String!
+    desc: String!
   }
 
   input UserInput {

@@ -7,9 +7,11 @@ import Navbar from "@/components/navbar";
 const client = new ApolloClient({
   uri: "/api/graphql",
   cache: new InMemoryCache(),
-  // headers: {
-  //   authorization: (localStorage && localStorage.getItem("token")) || "",
-  // },
+  headers: {
+    authorization:
+      (typeof window !== "undefined" && window.localStorage.getItem("token")) ||
+      "",
+  },
 });
 
 export default function App({ Component, pageProps }: AppProps) {

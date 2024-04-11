@@ -13,6 +13,7 @@ export const GET_ALL_QUOTES = gql`
   query getAllQuotes {
     quotes {
       name
+      desc
       by {
         _id
         firstName
