@@ -1,13 +1,14 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@apollo/client";
 import { GET_MY_PROFILE } from "../../gqloperations/queries";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
 
 const Profile = () => {
   const router = useRouter();
@@ -21,17 +22,17 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-[95vh]">
-      <Card sx={{ width: 400 }}>
-        <CardMedia
-          component="img"
-          alt={data && data.user.firstName}
-          height="200"
-          image={`https://robohash.org/${
-            data && data.user.firstName
-          }.png?size=200x200`}
-        />
-        <CardContent>
+    <div className="flex justify-center ">
+      <div className="bg-[white] p-10 w-[50%]">
+        <div className="text-center">
+          <div className="flex justify-center">
+            <img
+              src={`https://robohash.org/${
+                data && data.user.firstName
+              }.png?size=200x200`}
+            />
+          </div>
+
           <Typography gutterBottom variant="h6" component="div">
             First Name : {data && data.user.firstName}
           </Typography>
@@ -41,8 +42,45 @@ const Profile = () => {
           <Typography gutterBottom variant="h6" component="div">
             Email : {data && data.user.email}
           </Typography>
-        </CardContent>
-      </Card>
+        </div>
+        <List sx={{ bgcolor: "background.paper" }}>
+          {data &&
+            data.user &&
+            data.user.quotes &&
+            data.user.quotes.length > 0 &&
+            data.user.quotes.map((quote: any) => {
+              return (
+                <>
+                  <ListItem alignItems="flex-start">
+                    <ListItemAvatar>
+                      <Avatar
+                        alt={data.user.firstName}
+                        src="/static/images/avatar/1.jpg"
+                      />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={quote.name}
+                      secondary={
+                        <React.Fragment>
+                          <Typography
+                            sx={{ display: "inline" }}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {data.user.firstName}
+                          </Typography>
+                          {" — " + quote.desc}
+                        </React.Fragment>
+                      }
+                    />
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                </>
+              );
+            })}
+        </List>
+      </div>
     </div>
   );
 };
