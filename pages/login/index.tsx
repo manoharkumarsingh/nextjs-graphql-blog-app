@@ -104,7 +104,7 @@ const Login = () => {
                 />
               </div>
             </div>
-            <div>
+            <div className="mt-8">
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"

@@ -5,30 +5,43 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useRouter } from "next/navigation";
+import { useQuery } from "@apollo/client";
+import { GET_MY_PROFILE } from "../../gqloperations/queries";
 
 const Profile = () => {
+  const router = useRouter();
+  const { loading, error, data } = useQuery(GET_MY_PROFILE, {
+    fetchPolicy: "network-only",
+  });
+
+  if (typeof window != "undefined" && !localStorage.getItem("token")) {
+    router.push("/login", { scroll: false });
+    return <h1>Unauthorized</h1>;
+  }
+
   return (
     <div className="flex justify-center items-center h-[95vh]">
       <Card sx={{ width: 400 }}>
         <CardMedia
           component="img"
-          alt="green iguana"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          alt={data && data.user.firstName}
+          height="200"
+          image={`https://robohash.org/${
+            data && data.user.firstName
+          }.png?size=200x200`}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
+          <Typography gutterBottom variant="h6" component="div">
+            First Name : {data && data.user.firstName}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          <Typography gutterBottom variant="h6" component="div">
+            Last Name: {data && data.user.lastName}
+          </Typography>
+          <Typography gutterBottom variant="h6" component="div">
+            Email : {data && data.user.email}
           </Typography>
         </CardContent>
-        <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions>
       </Card>
     </div>
   );

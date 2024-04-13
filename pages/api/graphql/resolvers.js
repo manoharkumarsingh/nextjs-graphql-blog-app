@@ -53,9 +53,9 @@ const resolvers = {
     },
 
     createQuote: async (_, { newBlog }, { userId }) => {
-      // if (!userId) {
-      //   throw new Error("You must be logged in");
-      // }
+      if (!userId) {
+        throw new Error("You must be logged in");
+      }
       const blog = new Quote({
         desc: newBlog.desc,
         name: newBlog.name,

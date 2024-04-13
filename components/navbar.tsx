@@ -41,17 +41,23 @@ const Navbar = () => {
   };
 
   return (
-    <div className="sticky top-0 h-16 flex items-center justify-end">
+    <div className="sticky top-0 h-16 flex items-center justify-end z-50">
       <ul className="flex gap-8 justify-end mr-[64px]">
         {navigation.map((item, index) => {
           return (
             <li key={index}>
               {item.name === "Logout" ? (
-                <Link href={item.href} onClick={logout}>
+                <Link
+                  className="font-bold text-[1rem]"
+                  href={item.href}
+                  onClick={logout}
+                >
                   {item.name}
                 </Link>
               ) : (
-                <Link href={item.href}>{item.name}</Link>
+                <Link className="font-bold  text-[1rem]" href={item.href}>
+                  {item.name}
+                </Link>
               )}
             </li>
           );

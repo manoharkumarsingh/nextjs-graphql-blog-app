@@ -106,7 +106,7 @@ const Signup = () => {
                     />
                   </div>
                 </div>
-                <div>
+                <div className="mt-8">
                   <label
                     htmlFor="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -126,7 +126,7 @@ const Signup = () => {
                     />
                   </div>
                 </div>
-                <div>
+                <div className="mt-8">
                   <label
                     htmlFor="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -148,7 +148,7 @@ const Signup = () => {
                     />
                   </div>
                 </div>
-                <div>
+                <div className="mt-8">
                   <div className="flex items-center justify-between">
                     <label
                       htmlFor="password"

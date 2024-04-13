@@ -22,7 +22,10 @@ const Blog = () => {
             <>
               <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                  <Avatar
+                    alt={quote.by.firstName}
+                    src="/static/images/avatar/1.jpg"
+                  />
                 </ListItemAvatar>
                 <ListItemText
                   primary={quote.name}
@@ -34,7 +37,7 @@ const Blog = () => {
                         variant="body2"
                         color="text.primary"
                       >
-                        Ali Connors
+                        {quote.by.firstName}
                       </Typography>
                       {" — " + quote.desc}
                     </React.Fragment>

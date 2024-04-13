@@ -5,6 +5,8 @@ import CardContent from "@mui/material/CardContent";
 import { CREATE_QUOTE } from "../../gqloperations/mutations";
 import { useMutation } from "@apollo/client";
 import { GET_ALL_QUOTES } from "../../gqloperations/queries";
+import Alert from "@mui/material/Alert";
+import { useRouter } from "next/navigation";
 
 interface BlogInput {
   name: string;
@@ -12,10 +14,13 @@ interface BlogInput {
 }
 
 const Signup = () => {
+  const router = useRouter();
   const [blogInput, setBlogInput] = useState<BlogInput>({
     name: "",
     desc: "",
   });
+  const [errorMess, setErrorMess] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const [createQuote, { data, loading, error }] = useMutation(CREATE_QUOTE, {
     refetchQueries: [GET_ALL_QUOTES, "getAllQuotes"],
@@ -36,13 +41,49 @@ const Signup = () => {
       variables: {
         newBlog: blogInput,
       },
-    });
+    })
+      .then((res) => {
+        if (res.data && res.data) {
+          setSuccess(true);
+          setBlogInput({
+            name: "",
+            desc: "",
+          });
+          router.push("/", { scroll: false });
+        }
+      })
+      .catch((err) => {
+        setErrorMess(true);
+      });
+  };
+
+  const handleClose = (type: string) => {
+    setErrorMess(false);
+    setSuccess(false);
   };
 
   return (
     <div className="flex justify-center items-center h-[95vh]">
       <Card sx={{ width: 600 }}>
         <CardContent>
+          <div>{loading ? "Loading..." : ""}</div>
+
+          {errorMess && (
+            <Alert
+              onClose={() => handleClose("error")}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              {error && error.message}
+            </Alert>
+          )}
+
+          {success && (
+            <Alert onClose={() => handleClose("success")} severity="success">
+              Blog Created !!
+            </Alert>
+          )}
+
           <h2 className="mt-10 text-center font-[600] text-[2rem] leading-9 tracking-tight text-indigo-600 mb-10">
             Create New Quote
           </h2>
@@ -71,7 +112,7 @@ const Signup = () => {
             </div>
           </div>
 
-          <div>
+          <div className="mt-10">
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
@@ -90,6 +131,7 @@ const Signup = () => {
                   handleDescription(e);
                 }}
                 value={blogInput.desc}
+                rows={10}
               />
             </div>
           </div>
