@@ -41,7 +41,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="sticky top-0 h-16 flex items-center justify-end z-50">
+    <div className="sticky top-0 h-16 flex items-center justify-end z-50 bg-slate-300 mb-5">
       <ul className="flex gap-8 justify-end mr-[64px]">
         {navigation.map((item, index) => {
           return (
