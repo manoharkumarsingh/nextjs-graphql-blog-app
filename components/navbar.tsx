@@ -47,15 +47,15 @@ const Navbar = () => {
           return (
             <li key={index}>
               {item.name === "Logout" ? (
-                <Link className="font-bold text-[1rem]" href={item.href}>
-                  {item.name}
-                </Link>
-              ) : (
                 <Link
-                  className="font-bold  text-[1rem]"
+                  className="font-bold text-[1rem]"
                   href={item.href}
                   onClick={logout}
                 >
+                  {item.name}
+                </Link>
+              ) : (
+                <Link className="font-bold  text-[1rem]" href={item.href}>
                   {item.name}
                 </Link>
               )}
