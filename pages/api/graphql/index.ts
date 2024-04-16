@@ -45,7 +45,7 @@ const server = new ApolloServer({
   typeDefs,
 });
 
-export default startServerAndCreateNextHandler<NextRequest>(server, {
+export default startServerAndCreateNextHandler<NextRequest, MyContext>(server, {
   context: async (req) => {
     const { authorization } = req.headers;
     if (authorization) {
