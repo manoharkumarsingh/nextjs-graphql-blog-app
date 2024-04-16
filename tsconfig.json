@@ -20,7 +20,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/api/graphql/index.ts"
+    "pages/api/graphql/index.js"
   ],
   "exclude": ["node_modules"]
 }
