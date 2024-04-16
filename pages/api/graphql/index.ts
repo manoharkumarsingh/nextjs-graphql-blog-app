@@ -49,7 +49,9 @@ export default startServerAndCreateNextHandler<NextRequest>(server, {
   context: async (req) => {
     const { authorization } = req.headers;
     if (authorization) {
-      const { userId } = jwt.verify(authorization, process.env.JWT_SECRET);
+      const { userId } = jwt.verify(authorization, process.env.JWT_SECRET!) as {
+        userId: string;
+      };
       return { userId };
     }
     return {};
