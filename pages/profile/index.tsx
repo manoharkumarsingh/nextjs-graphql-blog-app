@@ -9,6 +9,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import Image from "next/image";
 
 const Profile = () => {
   const router = useRouter();
@@ -26,10 +27,14 @@ const Profile = () => {
       <div className="bg-[white] p-10 w-[50%]">
         <div className="text-center">
           <div className="flex justify-center">
-            <img
+            <Image
               src={`https://robohash.org/${
                 data && data.user.firstName
               }.png?size=200x200`}
+              alt="logo"
+              width={200}
+              height={200}
+              className="rounded-full"
             />
           </div>
 
